@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foro de Idiomas</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #E0EAFC; /* Fondo claro */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Contenedor que simula un teléfono */
+        .phone-container {
+            width: 360px;
+            height: 640px;
+            background: #FFFFFF; /* Fondo blanco */
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Estilos del header */
+        header {
+            background: #5BC0BE; /* Color del header */
+            padding: 20px;
+            text-align: center;
+            color: #FFFFFF; /* Color del texto */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 15px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* Estilos del menú de navegación */
+        nav {
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+            background: #FFFFFF; /* Fondo del menú */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #3A506B; /* Color de los enlaces */
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 20px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #5BC0BE; /* Color de fondo al hacer hover */
+            color: #FFFFFF; /* Color del texto al hacer hover */
+        }
+
+        /* Estilos del contenido principal */
+        main {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #FFFFFF; /* Fondo del contenido */
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Estilos de los posts */
+        .post, .notification, .badge {
+            background: #F0F4F8; /* Fondo de los posts */
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .post:hover, .notification:hover, .badge:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .post h3 {
+            margin: 0;
+            font-size: 18px;
+            color: #1C2541; /* Color del título */
+            cursor: pointer;
+        }
+
+        .post p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #3A506B; /* Color del texto */
+        }
+
+        /* Estilos de la barra de búsqueda */
+        .search-bar {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #5BC0BE; /* Borde de la barra de búsqueda */
+            border-radius: 20px;
+            font-size: 14px;
+            outline: none;
+            background: #FFFFFF; /* Fondo de la barra de búsqueda */
+            color: #1C2541; /* Color del texto */
+        }
+
+        .search-button {
+            width: 100%;
+            padding: 10px;
+            background: #5BC0BE; /* Color del botón */
+            border: none;
+            color: #FFFFFF; /* Color del texto */
+            cursor: pointer;
+            border-radius: 20px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-button:hover {
+            background-color: #3A506B; /* Color al hacer hover */
+        }
+
+        /* Estilos del footer */
+        footer {
+            background: #5BC0BE; /* Fondo del footer */
+            text-align: center;
+            padding: 10px;
+            color: #FFFFFF; /* Color del texto */
+            font-size: 12px;
+        }
+
+        /* Estilos de las insignias */
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #5BC0BE, #6FFFE9); /* Gradiente para las insignias */
+            color: #FFFFFF; /* Color del texto */
+            padding: 5px 10px;
+            margin: 5px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* Estilos de las notificaciones */
+        .notification p {
+            margin: 0;
+            font-size: 14px;
+            color: #3A506B; /* Color del texto */
+        }
+
+        .notification b {
+            color: #1C2541; /* Color del texto en negrita */
+        }
+
+        /* Estilos de los botones */
+        button {
+            padding: 10px 15px;
+            background: #5BC0BE; /* Color del botón */
+            border: none;
+            color: #FFFFFF; /* Color del texto */
+            cursor: pointer;
+            border-radius: 20px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #3A506B; /* Color al hacer hover */
+        }
+    </style>
+</head>
+<body>
+    <!-- Contenedor que simula un teléfono -->
+    <div class="phone-container">
+        <header>
+            <h1>Foro de Idiomas</h1>
+            <nav>
+                <a onclick="showPage('home')">Inicio</a>
+                <a onclick="showPage('search')">Buscar</a>
+                <a onclick="showPage('notifications')">Notificaciones</a>
+                <a onclick="showPage('profile')">Perfil</a>
+            </nav>
+        </header>
+
+        <main>
+            <!-- Pantalla Principal -->
+            <section id="home">
+                <h2>Posts Recientes</h2>
+                <div class="post">
+                    <h3 onclick="showPage('post')">¿Cómo mejorar mi pronunciación?</h3>
+                    <p>Publicado por @usuario123</p>
+                </div>
+                <div class="post">
+                    <h3 onclick="showPage('post')">Mejores recursos para aprender inglés</h3>
+                    <p>Publicado por @aprendiz</p>
+                </div>
+            </section>
+
+            <!-- Pantalla de Búsqueda -->
+            <section id="search" class="hidden">
+                <h2>Buscar en el Foro</h2>
+                <input type="text" class="search-bar" placeholder="Buscar...">
+                <button class="search-button">Buscar</button>
+                <h3>Resultados:</h3>
+                <div class="post">
+                    <h3 onclick="showPage('post')">Cómo mejorar la pronunciación</h3>
+                </div>
+            </section>
+
+            <!-- Pantalla de Vista de Post -->
+            <section id="post" class="hidden">
+                <h2>¿Cómo mejorar mi pronunciación?</h2>
+                <p>Publicado por @usuario123</p>
+                <p>Algunas estrategias incluyen el uso de repetición, escuchar hablantes nativos y practicar con grabaciones.</p>
+                <h3>Comentarios</h3>
+                <div class="post">
+                    <p><b>@estudiante:</b> Yo practico con podcasts, ayuda mucho.</p>
+                </div>
+                <button onclick="showPage('home')">Volver</button>
+            </section>
+
+            <!-- Pantalla de Notificaciones -->
+            <section id="notifications" class="hidden">
+                <h2>Notificaciones</h2>
+                <div class="notification">
+                    <p><b>@usuario123</b> respondió a tu post</p>
+                </div>
+            </section>
+
+            <!-- Pantalla de Perfil -->
+            <section id="profile" class="hidden">
+                <h2>@usuario123</h2>
+                <p>Nivel: Intermedio</p>
+                <h3>Insignias</h3>
+                <div class="badge">🔥 Aprendiz Constante</div>
+                <div class="badge">🏆 Top 10 del mes</div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Foro de Idiomas - 2025</p>
+        </footer>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            document.querySelectorAll("main section").forEach(section => {
+                section.classList.add("hidden");
+            });
+            document.getElementById(pageId).classList.remove("hidden");
+        }
+    </script>
+</body>
+</html>
