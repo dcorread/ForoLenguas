@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Foro de Idiomas</title>
+    <title>Foro de Idiomas - MVP</title>
     <style>
+        /* Estilos generales */
         body {
             font-family: 'Arial', sans-serif;
             background: #E0EAFC; /* Fondo claro */
@@ -197,6 +198,7 @@
                 <a onclick="showPage('search')">Buscar</a>
                 <a onclick="showPage('notifications')">Notificaciones</a>
                 <a onclick="showPage('profile')">Perfil</a>
+                <a onclick="showPage('create-post')">Crear Post</a>
             </nav>
         </header>
 
@@ -207,23 +209,19 @@
                 <div class="post">
                     <h3 onclick="showPage('post')">¿Cómo mejorar mi pronunciación?</h3>
                     <p>Publicado por @usuario123</p>
+                    <button onclick="likePost(this)">👍 12</button>
                 </div>
                 <div class="post">
                     <h3 onclick="showPage('post')">Mejores recursos para aprender inglés</h3>
                     <p>Publicado por @aprendiz</p>
-                </div>
-                <!-- Nuevo post sobre experiencia de viaje -->
-                <div class="post">
-                    <h3 onclick="showPage('japan-trip')">Mi experiencia viajando a Japón</h3>
-                    <p>Publicado por @viajero123</p>
+                    <button onclick="likePost(this)">👍 8</button>
                 </div>
             </section>
 
             <!-- Pantalla de Búsqueda -->
             <section id="search" class="hidden">
                 <h2>Buscar en el Foro</h2>
-                <input type="text" class="search-bar" placeholder="Buscar...">
-                <button class="search-button">Buscar</button>
+                <input type="text" class="search-bar" placeholder="Buscar..." oninput="searchPosts(this.value)">
                 <h3>Resultados:</h3>
                 <div class="post">
                     <h3 onclick="showPage('post')">Cómo mejorar la pronunciación</h3>
@@ -246,7 +244,10 @@
             <section id="notifications" class="hidden">
                 <h2>Notificaciones</h2>
                 <div class="notification">
-                    <p><b>@usuario123</b> respondió a tu post</p>
+                    <p><b>@usuario123</b> ha dado like a tu post.</p>
+                </div>
+                <div class="notification">
+                    <p><b>@viajera456</b> ha comentado en tu post.</p>
                 </div>
             </section>
 
@@ -259,36 +260,15 @@
                 <div class="badge">🏆 Top 10 del mes</div>
             </section>
 
-            <!-- Nueva pantalla de experiencia de viaje a Japón -->
-            <section id="japan-trip" class="hidden">
-                <h2>Mi experiencia viajando a Japón</h2>
-                <p>Publicado por @viajero123</p>
-                <p>
-                    Hace unos meses tuve la oportunidad de viajar a Japón, y fue una experiencia increíble. Aquí les comparto algunas recomendaciones:
-                </p>
-                <h3>Lugares que visité:</h3>
-                <ul>
-                    <li><b>Tokio:</b> La capital es un lugar lleno de energía. No te pierdas el cruce de Shibuya, el templo Senso-ji en Asakusa y el barrio de Akihabara para los amantes de la tecnología.</li>
-                    <li><b>Kioto:</b> Una ciudad llena de historia. Visité el Fushimi Inari Taisha, famoso por sus miles de torii rojos, y el templo Kinkaku-ji (Pabellón Dorado).</li>
-                    <li><b>Osaka:</b> Conocida por su comida callejera. No dejes de probar el takoyaki y el okonomiyaki en Dotonbori.</li>
-                </ul>
-                <h3>Actividades recomendadas:</h3>
-                <ul>
-                    <li><b>Onsen:</b> Visitar un baño termal tradicional es una experiencia relajante. Fui a uno en Hakone con vistas al Monte Fuji.</li>
-                    <li><b>Ceremonia del té:</b> En Kioto participé en una ceremonia del té, una experiencia cultural única.</li>
-                    <li><b>Festivales:</b> Si puedes, visita durante un festival local. Yo estuve en el Gion Matsuri en Kioto, ¡espectacular!</li>
-                </ul>
-                <h3>Consejos prácticos:</h3>
-                <ul>
-                    <li>Aprende algunas frases básicas en japonés. Aunque muchos hablan inglés, los locales aprecian el esfuerzo.</li>
-                    <li>Consigue un JR Pass si planeas moverte entre ciudades. Es económico y muy conveniente.</li>
-                    <li>Respeta las normas culturales, como no comer mientras caminas y quitarte los zapatos en ciertos lugares.</li>
-                </ul>
-                <h3>Comentarios</h3>
-                <div class="post">
-                    <p><b>@viajera456:</b> ¡Gracias por los consejos! Estoy planeando mi viaje a Japón y esto me sirve mucho.</p>
-                </div>
-                <button onclick="showPage('home')">Volver</button>
+            <!-- Pantalla de Creación de Post -->
+            <section id="create-post" class="hidden">
+                <h2>Crear un nuevo post</h2>
+                <form id="post-form">
+                    <input type="text" id="post-title" placeholder="Título del post" required>
+                    <textarea id="post-content" placeholder="Escribe tu post aquí..." required></textarea>
+                    <input type="text" id="post-tags" placeholder="Etiquetas (separadas por comas)">
+                    <button type="submit">Publicar</button>
+                </form>
             </section>
         </main>
 
@@ -298,12 +278,44 @@
     </div>
 
     <script>
+        // Función para mostrar u ocultar secciones
         function showPage(pageId) {
             document.querySelectorAll("main section").forEach(section => {
                 section.classList.add("hidden");
             });
             document.getElementById(pageId).classList.remove("hidden");
         }
+
+        // Función para buscar posts
+        function searchPosts(keyword) {
+            const posts = document.querySelectorAll('.post');
+            posts.forEach(post => {
+                const postText = post.innerText.toLowerCase();
+                if (postText.includes(keyword.toLowerCase())) {
+                    post.style.display = 'block';
+                } else {
+                    post.style.display = 'none';
+                }
+            });
+        }
+
+        // Función para dar like a un post
+        function likePost(button) {
+            const likes = parseInt(button.innerText.split(' ')[1]) || 0;
+            button.innerText = `👍 ${likes + 1}`;
+        }
+
+        // Función para crear un post
+        document.getElementById('post-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const title = document.getElementById('post-title').value;
+            const content = document.getElementById('post-content').value;
+            const tags = document.getElementById('post-tags').value.split(',');
+
+            // Simulación de creación de post
+            alert('Post creado con éxito!');
+            showPage('home');
+        });
     </script>
 </body>
 </html>
