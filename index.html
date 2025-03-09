@@ -221,6 +221,31 @@
         #post-form button:hover {
             background-color: #3A506B;
         }
+
+        /* Estilos del botón de crear post */
+        .create-post-button {
+            background: #5BC0BE;
+            color: #FFFFFF;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .create-post-button:hover {
+            background-color: #3A506B;
+        }
+
+        .create-post-button i {
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
@@ -233,7 +258,9 @@
                 <a onclick="showPage('search')">Buscar</a>
                 <a onclick="showPage('notifications')">Notificaciones</a>
                 <a onclick="showPage('profile')">Perfil</a>
-                <a onclick="showPage('create-post')">Crear Post</a>
+                <button class="create-post-button" onclick="showPage('create-post')">
+                    <i>+</i> Crear Post
+                </button>
             </nav>
         </header>
 
