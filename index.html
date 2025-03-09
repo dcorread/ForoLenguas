@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Foro de Idiomas - MVP</title>
+    <title>Foro de Idiomas - Crear Post</title>
     <style>
         /* Estilos generales */
         body {
@@ -185,6 +185,41 @@
 
         button:hover {
             background-color: #3A506B; /* Color al hacer hover */
+        }
+
+        /* Estilos del formulario de creación de post */
+        #post-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        #post-form input, #post-form textarea {
+            padding: 10px;
+            border: 1px solid #5BC0BE;
+            border-radius: 10px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        #post-form textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        #post-form button {
+            background: #5BC0BE;
+            color: #FFFFFF;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        #post-form button:hover {
+            background-color: #3A506B;
         }
     </style>
 </head>
