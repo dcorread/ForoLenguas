@@ -27,6 +27,7 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
+            position: relative; /* Para posicionar el botón flotante */
         }
 
         /* Estilos del header */
@@ -222,29 +223,29 @@
             background-color: #3A506B;
         }
 
-        /* Estilos del botón de crear post */
-        .create-post-button {
+        /* Estilos del botón flotante de crear post */
+        .floating-button {
+            position: fixed; /* Fija el botón en la pantalla */
+            bottom: 20px; /* Distancia desde la parte inferior */
+            right: 20px; /* Distancia desde la derecha */
             background: #5BC0BE;
             color: #FFFFFF;
             border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-size: 14px;
+            padding: 15px 20px;
+            border-radius: 50%; /* Botón circular */
+            font-size: 24px;
             font-weight: bold;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, transform 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
         }
 
-        .create-post-button:hover {
+        .floating-button:hover {
             background-color: #3A506B;
-        }
-
-        .create-post-button i {
-            font-size: 16px;
+            transform: scale(1.1); /* Efecto de escala al hacer hover */
         }
     </style>
 </head>
@@ -258,9 +259,6 @@
                 <a onclick="showPage('search')">Buscar</a>
                 <a onclick="showPage('notifications')">Notificaciones</a>
                 <a onclick="showPage('profile')">Perfil</a>
-                <button class="create-post-button" onclick="showPage('create-post')">
-                    <i>+</i> Crear Post
-                </button>
             </nav>
         </header>
 
@@ -337,6 +335,9 @@
         <footer>
             <p>Foro de Idiomas - 2025</p>
         </footer>
+
+        <!-- Botón flotante de crear post -->
+        <button class="floating-button" onclick="showPage('create-post')">+</button>
     </div>
 
     <script>
