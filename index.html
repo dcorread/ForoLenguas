@@ -37,6 +37,7 @@
             text-align: center;
             color: #FFFFFF; /* Color del texto */
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative; /* Para posicionar la flecha de regreso */
         }
 
         header h1 {
@@ -247,12 +248,29 @@
             background-color: #3A506B;
             transform: scale(1.1); /* Efecto de escala al hacer hover */
         }
+
+        /* Estilos de la flecha de regreso */
+        .back-arrow {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            color: #FFFFFF;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .back-arrow:hover {
+            transform: scale(1.2); /* Efecto de escala al hacer hover */
+        }
     </style>
 </head>
 <body>
     <!-- Contenedor que simula un teléfono -->
     <div class="phone-container">
         <header>
+            <!-- Flecha de regreso -->
+            <div class="back-arrow hidden" id="back-arrow" onclick="showPage('home')">←</div>
             <h1>Foro de Idiomas</h1>
             <nav>
                 <a onclick="showPage('home')">Inicio</a>
@@ -347,6 +365,14 @@
                 section.classList.add("hidden");
             });
             document.getElementById(pageId).classList.remove("hidden");
+
+            // Mostrar u ocultar la flecha de regreso
+            const backArrow = document.getElementById("back-arrow");
+            if (pageId === "home") {
+                backArrow.classList.add("hidden");
+            } else {
+                backArrow.classList.remove("hidden");
+            }
         }
 
         // Función para buscar posts
